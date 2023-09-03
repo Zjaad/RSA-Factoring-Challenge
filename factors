@@ -8,22 +8,13 @@ def factorize(nb):
             nb //= x
     if nb > 1:
         fct.append(nb)
-    return fct
-
-if len(sys.argv) != 2:
-    print("Usage: factors <file>")
-    sys.exit(1)
-
-ipf = sys.argv[1]
+    return (fct)
 
 try:
-    with open(ipf, 'r') as file:
-        for li in file:
-            nb = int(li.strip())
-            fcts = factorize(nb)
-            fcts_str = "*".join(map(str, fcts))
-            print(f"{nb}={fcts_str}")
-
-except FileNotFoundError:
-    print(f"File '{ipf}' not found.")
-    sys.exit(1)
+    for line in sys.stdin:
+        nb = int(line.strip())
+        fcts = factorize(nb)
+        fcts_str = "*".join(map(str, fcts))
+        print(f"{nb}={fcts_str}")
+except KeyboardInterrupt:
+    pass

@@ -1,0 +1,30 @@
+import sys
+import sympy
+
+def factor_rsa(nb):
+    fcts = sympy.factorint(nb)
+    if len(fcts) == 2:
+        p, q = fcts.keys()
+        return (p, q)
+    else:
+        return (None , None)
+    
+if len(sys.argv) != 2:
+    print("Usage: rsa <file>")
+    sys.exit(1)
+    
+input_file = sys.argv[1]
+
+try:
+    with open(input_file, 'r') as file:
+        for li in file:
+            nb = int(li.strip())
+            p, q = factor_rsa(nb)
+            if p and q:
+                print(f"{nb}={p}*{q}")
+            else:
+                print(f"Unable to factor {nb} into two primes.")
+
+except FileNotFoundError:
+    print(f"File '{input_file}' not found.")
+    sys.exit(1)

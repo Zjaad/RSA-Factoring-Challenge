@@ -17,24 +17,24 @@ def factorize(nb):
 def check_factor(args):
     if len(args) != 1:
         count = 0
-        num2 = 1
+        nb2 = 1
         for a in args:
             if count > 0:
-                num2 *= int(a)
+                nb2 *= int(a)
             count += 1
     else:
-        num2 = int(args[0])
+        nb2 = int(args[0])
 
     nb1 = int(args[0])
     
-    rst = int(num2 > nb1)
+    rst = int(nb2 > nb1)
     
     if rst == 1:
         numcp = nb1
-        nb1 = num2
-        num2 = numcp
+        nb1 = nb2
+        nb2 = numcp
 
-    print(f"{nb1}*{num2}")
+    print(f"{nb1}={nb2}*{nb1//nb2}")
 
 if len(sys.argv) != 2:
     print('Usage: python script.py <file>')

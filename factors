@@ -1,31 +1,53 @@
+#!/usr/bin/python3
+
 import sys
 
 def factorize(nb):
-    fct = []
+    factors = []
     x = 2
     while x * x <= nb:
         while nb % x == 0:
-            fct.append(x)
+            factors.append(x)
             nb //= x
-        else:
-            x += 1
+        x += 1
     if nb > 1:
-        fct.append(nb)
-    return (fct)
+        factors.append(nb)
+    return factors
 
-if __name__ == "__main__":
-    if len(sys.argv) != 2:
-        print('Usage: python factors.py <file>')
-        sys.exit(1)
-    input_filename = sys.argv[1]
+def check_factor(args):
+    if len(args) != 1:
+        count = 0
+        num2 = 1
+        for a in args:
+            if count > 0:
+                num2 *= int(a)
+            count += 1
+    else:
+        num2 = int(args[0])
 
-    try:
-        with open(input_filename, 'r') as file:
-            for li in file:
-                nb = int(li.strip())
-                fcts = factorize(nb)
-                fcts_str = "*".join(map(str, fcts))
-                print(f"{nb}={fcts_str}")
-    except FileNotFoundError:
-        print(f"Error: Can't open file '{input_filename}'")
-        sys.exit(1)
+    nb1 = int(args[0])
+    
+    rst = int(num2 > nb1)
+    
+    if rst == 1:
+        numcp = nb1
+        nb1 = num2
+        num2 = numcp
+
+    print(f"{nb1}*{num2}")
+
+if len(sys.argv) != 2:
+    print('Usage: python script.py <file>')
+    sys.exit(1)
+
+input_filename = sys.argv[1]
+
+try:
+    with open(input_filename, 'r') as file:
+        for li in file:
+            nb = int(li.strip())
+            factors = factorize(nb)
+            check_factor(factors)
+except FileNotFoundError:
+    print(f"Error: Can't open file '{input_filename}'")
+    sys.exit(1)
